@@ -8,7 +8,7 @@ function App() {
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const date = new Date();
   const day = dayNames[date.getDay()];
-  let getTime = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
+  const Add = ()=> {setToDo('');  setToDos([...toDos,{id:Date.now(),text:toDo,status:'ongoing',time:date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()}])}
   return (
     <div>
       <div className="app">
@@ -21,7 +21,7 @@ function App() {
         </div>
         <div className="input">
           <input value={toDo} onChange={(e)=>setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
-          <i className="fas fa-plus" onClick={()=>setToDos([...toDos,{id:Date.now(),text:toDo,status:'ongoing',time:getTime}])}></i>
+          <i className="fas fa-plus" onClick={Add}></i>
         </div>
       </div>
       <div className="status-area">
@@ -60,6 +60,7 @@ function App() {
                       <input type="checkbox" onChange={(e)=>{setToDos(toDos.filter(obj2=>{
                       if (obj2.id === obj.id) {
                         obj2.status='done'
+                        obj2.time= obj2.time=date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
                       } 
                       return obj2
                       }))}} value={obj.status} name="" id="" />
@@ -70,6 +71,7 @@ function App() {
                       <i className="fas fa-times" onClick={()=>setToDos(toDos.filter((obj2)=>{ 
                         if (obj2.id === obj.id) {
                           obj2.status='dropped'
+                          obj2.time=date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
                         }
                         return obj2
                       }))}></i>
@@ -95,6 +97,7 @@ function App() {
                       setToDos(toDos.filter((obj2)=>{
                       if (obj2.id === obj.id) {
                         obj2.status='ongoing'
+                       
                       }
                       return obj2
                     }) )
